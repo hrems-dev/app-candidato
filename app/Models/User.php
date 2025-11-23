@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'role',
     ];
 
     /**
@@ -47,7 +49,24 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => 'string',
         ];
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function esAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Get user's citas (consultations)
+     */
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
     }
 
     /**
